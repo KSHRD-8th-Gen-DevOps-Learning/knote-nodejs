@@ -1,0 +1,30 @@
+replicasCount: 1
+
+service:
+  name: knote
+  port: 80
+  nodePort: 30001
+  targetPort: 3000
+  selector:
+    app: knote
+  type: LoadBalancer
+
+deployment:
+  name: knote
+  selector:
+    app: knote
+  container:
+    name: knote
+    image: kimleangxama/knote:latest
+    ports:
+      containerPort: 3000
+env:
+  data:
+    - key: MONGO_URL
+      value: mongodb://mongo:27017/dev
+    - key: MINIO_ACCESS_KEY
+      value: mykey
+    - key: MINIO_SECRET_KEY
+      value: mysecret
+    - key: MINIO_HOST
+      value: minio

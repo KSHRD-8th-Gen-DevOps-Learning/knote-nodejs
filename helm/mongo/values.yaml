@@ -1,0 +1,23 @@
+replicasCount: 1
+
+mongo:
+  pvc:
+    name: mongo-pvc
+    accessModes: ReadWriteOnces
+    storage: 256Mi
+  service:
+    name: mongo
+    selector:
+      app: mongo
+    ports:
+      port: 27017
+      containerPort: 27017
+  deployment:
+    container:
+      name: mongo
+      image: mongo:3.6.17-xenial
+      ports:
+        containerPort: 27017
+      volumeMounts:
+        name: storage
+        mountPath: /data/db
